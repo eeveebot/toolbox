@@ -1,16 +1,22 @@
 name: Docker Image Build
 on:
-  # build when push to main or release happens
   push:
     branches:
       - main
 
-  # allow manual execution
   workflow_dispatch:
 
 permissions:
   contents: read
   packages: write
+
+concurrency:
+  group: "operator"
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
 
 env:
   REGISTRY: ghcr.io
