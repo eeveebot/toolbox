@@ -4,11 +4,9 @@ echo "eevee-toolbox init script"
 
 echo "Running hooks"
 
-for hook in $(ls /eevee/hook.d/init/); do
-  if [ -x "/eevee/hook.d/init/${hook}" ]; then
-    echo "Executing hook: /eevee/hook.d/init/${hook}"
-    /bin/bash "/eevee/hook.d/init/${hook}"
-  fi
+for HOOK in $(ls /eevee/hook.d/init/); do
+  echo "Executing hook: /eevee/hook.d/init/${HOOK}"
+  . "/eevee/hook.d/init/${HOOK}"
 done
 
 echo "Sleeping..."
