@@ -21,4 +21,4 @@ RUN set -exu \
   && mv /tmp/nats-*/nats /usr/local/bin/
 
 ENTRYPOINT [ "/bin/bash" ]
-CMD [ "--login" ]
+CMD [ "-c", "tail -f /dev/null" ]
