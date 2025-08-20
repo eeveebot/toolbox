@@ -3,9 +3,22 @@ FROM docker.io/alpine:3.22
 ARG TARGETPLATFORM
 
 RUN set -exu \
+  && addgroup \
+      --gid 1000 \
+      eevee \
+  && adduser \
+      --disabled-password \
+      --gecos "" \
+      --ingroup eevee \
+      --uid 1000 \
+      eevee
+
+RUN set -exu \
   && apk add --no-cache \
     bash \
-    curl
+    curl \
+    iproute2-minimal \
+    bind-tools
 
 RUN set -exu \
   && case $(echo $TARGETPLATFORM | cut -d '/' -f2) in \
@@ -19,6 +32,8 @@ RUN set -exu \
     esac \
   && cd /tmp/ && unzip nats-cli.zip \
   && mv /tmp/nats-*/nats /usr/local/bin/
+
+USER eevee
 
 ENTRYPOINT [ "/bin/bash" ]
 CMD [ "-c", "tail -f /dev/null" ]
