@@ -33,7 +33,9 @@ RUN set -exu \
   && cd /tmp/ && unzip nats-cli.zip \
   && mv /tmp/nats-*/nats /usr/local/bin/
 
+COPY --chown=eevee:eevee ./target/eevee /eevee
+
 USER eevee
 
 ENTRYPOINT [ "/bin/bash" ]
-CMD [ "-c", "tail -f /dev/null" ]
+CMD [ "/eevee/entrypoint.sh" ]
