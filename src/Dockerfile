@@ -17,8 +17,8 @@ RUN set -exu \
       echo "Unsupported architecture: ${TARGETPLATFORM}" \
       exit 1 ;; \
     esac \
-  && unzip nats-cli.zip \
-  && mv nats-*/nats /usr/local/bin/
+  && cd /tmp/ && unzip nats-cli.zip \
+  && mv /tmp/nats-*/nats /usr/local/bin/
 
 ENTRYPOINT [ "/bin/bash" ]
 CMD [ "--login" ]
