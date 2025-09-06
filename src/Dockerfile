@@ -46,8 +46,9 @@ RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN \
   && mkdir -p $HOME/.npm-global \
   && npm config set prefix $HOME/.npm-global \
   && npm install -g "@eeveebot/cli" \
-  && echo PATH="$HOME/.npm-global:\$PATH" | tee -a $HOME/.bashrc
+  && echo "export PATH=\"$HOME/.npm-global:\$PATH\"" | tee -a $HOME/.bashrc
 
+WORKDIR /eevee
 
 ENTRYPOINT [ "/bin/bash" ]
 CMD [ "/eevee/entrypoint.sh" ]
