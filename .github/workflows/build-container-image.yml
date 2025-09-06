@@ -63,4 +63,4 @@ jobs:
             cwd://${{ steps.meta.outputs.bake-file }}
           targets: build
           set: |
-            build.secrets+="type=env,id=GITHUB_TOKEN"
+            build.secrets+="id=GITHUB_TOKEN,env=GITHUB_TOKEN"
