@@ -2,8 +2,6 @@ FROM docker.io/alpine:3.22
 
 ARG TARGETPLATFORM
 
-ARG GITHUB_TOKEN
-
 RUN set -exu \
   && addgroup \
       --gid 1000 \
@@ -21,7 +19,8 @@ RUN set -exu \
     curl \
     iproute2-minimal \
     bind-tools \
-    nodejs
+    nodejs \
+    npm
 
 RUN set -exu \
   && case $(echo $TARGETPLATFORM | cut -d '/' -f2) in \
@@ -39,6 +38,7 @@ RUN set -exu \
 COPY --chown=eevee:eevee ./target/eevee /eevee
 
 RUN set -exu \
+  && export GITHUB_TOKEN=$(cat /run/secrets/github_token) \
   && echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" | tee -a $HOME/.npmrc \
   && echo "@eeveebot:registry=https://npm.pkg.github.com/" | tee -a $HOME/.npmrc \
   && mkdir -p $HOME/.npm-global \
