@@ -56,11 +56,11 @@ jobs:
 
       - name: Build and Push
         uses: docker/bake-action@v6
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           push: true
           files: |
             ./src/docker-bake.hcl
             cwd://${{ steps.meta.outputs.bake-file }}
           targets: build
-          set: |
-            build.secrets+="id=GITHUB_TOKEN,env=GITHUB_TOKEN"
