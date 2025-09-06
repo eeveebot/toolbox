@@ -37,6 +37,8 @@ RUN set -exu \
 
 COPY --chown=eevee:eevee ./target/eevee /eevee
 
+USER eevee
+
 RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN \
   set -exu \
   && echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" | tee -a $HOME/.npmrc \
@@ -47,7 +49,6 @@ RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN \
   && npm link "@eeveebot/cli" \
   && echo PATH="$HOME/.npm-global:\$PATH" | tee -a $HOME/.bashrc
 
-USER eevee
 
 ENTRYPOINT [ "/bin/bash" ]
 CMD [ "/eevee/entrypoint.sh" ]
