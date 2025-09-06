@@ -2,6 +2,8 @@ FROM docker.io/alpine:3.22
 
 ARG TARGETPLATFORM
 
+ARG GITHUB_TOKEN
+
 RUN set -exu \
   && addgroup \
       --gid 1000 \
@@ -18,7 +20,8 @@ RUN set -exu \
     bash \
     curl \
     iproute2-minimal \
-    bind-tools
+    bind-tools \
+    nodejs
 
 RUN set -exu \
   && case $(echo $TARGETPLATFORM | cut -d '/' -f2) in \
@@ -34,6 +37,15 @@ RUN set -exu \
   && mv /tmp/nats-*/nats /usr/local/bin/
 
 COPY --chown=eevee:eevee ./target/eevee /eevee
+
+RUN set -exu \
+  && echo "//npm.pkg.github.com/:_authToken=${githubToken}" | tee -a $HOME/.npmrc \
+  && echo "@eeveebot:registry=https://npm.pkg.github.com/" | tee -a $HOME/.npmrc \
+  && mkdir -p $HOME/.npm-global \
+  && npm config set prefix $HOME/.npm-global \
+  && npm install -g "@eeveebot/cli" \
+  && npm link "@eeveebot/cli" \
+  && echo PATH="$HOME/.npm-global:\$PATH" | tee -a $HOME/.bashrc
 
 USER eevee
 
