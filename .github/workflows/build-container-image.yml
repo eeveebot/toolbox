@@ -63,4 +63,4 @@ jobs:
             cwd://${{ steps.meta.outputs.bake-file }}
           targets: build
           set: |
-            "build.secrets.github_token=${{ secrets.GITHUB_TOKEN }}"
+            build.secrets.github_token=${{ secrets.GITHUB_TOKEN }}
