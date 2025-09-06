@@ -8,5 +8,8 @@ target "build" {
   platforms = [
     "linux/amd64",
     "linux/arm64",
+  ],
+  secret = [
+    "type=env,id=GITHUB_TOKEN"
   ]
 }

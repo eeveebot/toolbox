@@ -2,7 +2,7 @@ FROM docker.io/alpine:3.22
 
 ARG TARGETPLATFORM
 
-RUN --mount=type=secret,id=github_token,env=GITHUB_TOKEN
+RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN
 
 RUN set -exu \
   && addgroup \
