@@ -39,7 +39,7 @@ RUN set -exu \
 COPY --chown=eevee:eevee ./target/eevee /eevee
 
 RUN set -exu \
-  && echo "//npm.pkg.github.com/:_authToken=${githubToken}" | tee -a $HOME/.npmrc \
+  && echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" | tee -a $HOME/.npmrc \
   && echo "@eeveebot:registry=https://npm.pkg.github.com/" | tee -a $HOME/.npmrc \
   && mkdir -p $HOME/.npm-global \
   && npm config set prefix $HOME/.npm-global \
