@@ -62,3 +62,5 @@ jobs:
             ./src/docker-bake.hcl
             cwd://${{ steps.meta.outputs.bake-file }}
           targets: build
+          secrets: |
+            "github_token=${{ secrets.GITHUB_TOKEN }}"
