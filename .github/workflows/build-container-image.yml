@@ -7,6 +7,9 @@ on:
 
   workflow_dispatch:
 
+  repository_dispatch:
+    types: [mod-cli-updated]
+
 permissions:
   contents: read
   packages: write
