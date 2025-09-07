@@ -46,6 +46,7 @@ RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN \
   && mkdir -p $HOME/.npm-global \
   && npm config set prefix $HOME/.npm-global \
   && npm install -g "@eeveebot/cli" \
+  && rm $HOME/.npmrc \
   && echo "export PATH=\"$HOME/.npm-global/bin:\$PATH\"" | tee -a $HOME/.bashrc
 
 WORKDIR /eevee
